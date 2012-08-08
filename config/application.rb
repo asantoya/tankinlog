@@ -40,7 +40,7 @@ module Estaciones
     config.filter_parameters += [:password]
 
     # Enable escaping HTML in JSON.
-    config.assets.initialize_on_precompile = false
+    #config.assets.initialize_on_precompile = false
     config.active_support.escape_html_entities_in_json = true
     config.assets.compile = true
 

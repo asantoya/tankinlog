@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="container">
+            <fieldset>
+                <h1><%= @user.email %></h1>
+                 <br> 
+                 <h3>Hello, Here are the options that you are able to use...</h3>
+                 <br>
+                 <ul>
+                    <li>
+                        <strong>new car registration: </strong>
+                        <%= link_to "new car", new_user_car_path(current_user)%>
+                    </li>
+                    <li>
+                        <strong>watch all your cars: </strong>
+                        <%= link_to "your cars", user_cars_path(current_user)%>
+                    </li>
+                    
+                </ul>
+            </fieldset>
+        </div> <!-- /container -->
+    </body>
+</html>

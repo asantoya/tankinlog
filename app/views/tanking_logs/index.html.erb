@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+    </head>
+    <body>
+      <div class="container">
+      
+      <% if @tankinglog.count<1 %>
+        <p>
+        There are no tankings for this car. Do you want to <%= link_to 'create a new tanking', new_user_car_tanking_log_path(@user, @car)%>
+        </p>
+      <% else %>
+      <script type="text/javascript" charset="utf-8">
+      $(function () {
+        new Highcharts.Chart({
+          chart: { renderTo: 'foo_chart',defaultSeriesType: 'column' },
+          title: { text: 'tanking costs daily' },
+          xAxis: { type: 'datetime' },
+          yAxis: {
+            title: { text: 'cost' }
+          },
+          tooltip: {
+            formatter: function () {
+              return Highcharts.dateFormat("%B %e %Y", this.x) + ': ' + '$' + Highcharts.numberFormat(this.y, 2);
+            }
+          },
+          series: [{
+            name: 'Days',
+            pointInterval: <%= 1.day * 1000 %>, 
+            pointStart: <%= 1.weeks.ago.at_midnight.to_i * 1000 %>,
+            data: <%= (1.weeks.ago.to_date..Date.today).map { |date| TankingLog.total_on(date).to_f}.inspect %>
+          }]
+        });
+      });
+      </script>
+      <div id="foo_chart" style="width: 1000px; height: 300px;"></div>
+      <h1>Listing Tankings</h1>
+        <table class="table table-condensed">
+          <tr>
+            <th>Cost</th>
+            <th>Gallon</th>
+            <th>Km</th>
+            <th>Date</th>
+            <th>Gas Station's id</th>
+            <th></th>
+          </tr>
+          <% for tankinglog in @tankinglog  %>
+            <tr>
+              <td><%= number_to_currency (tankinglog.cost) %></td>
+              <td><%= tankinglog.gallon %></td>
+              <td><%= tankinglog.km %></td>
+              <td><%= tankinglog.date.strftime("%B %e, %Y") %></td>
+              <td><%= tankinglog.gas_station_id %></td>
+            </tr>
+          <% end %>
+        </table>
+        <br />
+        <%= link_to 'New tanking', new_user_car_tanking_log_path(@user, @car), :class => "btn btn-primary" %>
+      <% end %>
+      <br />
+      <br />
+      <%= link_to 'back', user_cars_path(current_user), :class => "btn btn-primary" %>
+      </div> <!-- /container -->
+    </body>
+</html>

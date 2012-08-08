@@ -1,0 +1,44 @@
+<script type="text/javascript" charset="utf-8">
+        $(function () { 
+         new Highcharts.Chart({
+          chart: { renderTo: 'foo_chart',defaultSeriesType: 'line' },
+          title: { text: 'tankigs history' },
+          xAxis: { 
+            categories: ['Apples', 'Bananas', 'Oranges']
+          },
+          yAxis: {
+            title: { text: 'Cost'}
+          },
+          series: [{
+            name: '13',
+            data: [1,2,3]
+          }, {
+            name: '14',
+            data: [5,6,7]
+          }]
+        }); 
+       });
+       
+      </script>
+      <div id="foo_chart" style="width: 560px; height: 300px;"></div>
+      <%= high_chart("my_id", @h) %>
+
+
+      <% @tankinglog.each do |tankinglog| %>
+            <tr>
+              <td><%= tankinglog.cost %></td>
+              <td><%= tankinglog.gallon %></td>
+              <td><%= tankinglog.km %></td>
+              <td><%= tankinglog.date %></td>
+              <td><%= tankinglog.gas_station_id %></td>
+            </tr>
+          <% end %>
+
+@h = LazyHighCharts::HighChart.new('graph') do |f|
+      @tankinglog.each do |tankinglog|
+        f.options[:chart][:defaultSeriesType] = "column"
+        f.series(:data=>[tankinglog.km]) 
+        f.title(:text=>'more expensive station')
+        f.xAxis(:categories=>['Stations'])
+      end
+    end

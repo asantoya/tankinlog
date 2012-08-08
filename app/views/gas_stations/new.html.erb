@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="container">
+        <h2>new gas station</h2>
+
+        <%= form_for ([@gas]) do |f| %>
+          <div><%= f.label :name %><br />
+          <%= f.text_field :name %></div>
+          <div><%= f.submit "station register",:class => "btn btn-primary" %></div>
+        <% end %>
+        <br />
+        <%= link_to "Back", user_cars_path(current_user),:class => "btn btn-primary"  %>
+      </div> <!-- /container -->
+    </body>
+</html>

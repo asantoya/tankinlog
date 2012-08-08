@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+    </head>
+    <body>
+<div class="container">
+  <h1>Listing Cars</h1>
+      <% if @car.count<1 %>
+        <p> You haven't registered any car. ¿Do you want to  <%= link_to 'create a new car', new_user_car_path%> now?</p>
+      <% else %>
+        <table class="table table-condensed">
+      <tr>
+        <th>Brand</th>
+        <th>Color</th>
+        <th>Model</th>
+        <th>Year</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+ 
+      <% @car.each do |car| %>
+    <tr>
+      <td><%= car.brand %></td>
+      <td><%= car.color %></td>
+      <td><%= car.model %></td>
+      <td><%= car.year %></td>
+      <td><%= link_to 'Edit', edit_user_car_path(@user, car) %></td>
+      <td><%= link_to 'Delete', user_car_path(@user, car), :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to 'Tankings', user_car_tanking_logs_path(@user, car)%></td>
+    </tr>
+    <% end %>
+    </table>
+    <br />
+        <%= link_to 'create a new car', new_user_car_path, :class => "btn btn-primary" %>
+      <% end %>
+      <br />
+      <br />
+      <%= link_to 'back', current_user, :class => "btn btn-primary" %>
+      </div> <!-- /container -->
+</body>
+</html>
+

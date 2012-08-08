@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="container">
+        <h2>new tanking log</h2>
+        <%= form_for ([@user,@car,@tankinglog]) do |f| %>
+          <div><%= f.label :cost %><br />
+          <%= f.text_field :cost %></div>
+
+          <div><%= f.label :gallon %><br />
+          <%= f.text_field :gallon %></div>
+
+          <div><%= f.label :km %><br />
+          <%= f.text_field :km %></div>
+
+          <div><%= f.label :date %> <i>( format yyyy-mm-dd )</i> <br />
+          <%= f.text_field :date %></div>
+
+          <div><%= f.label :Station %><br />
+          <%= f.select("gas_station_id", GasStation.all.collect {|gs| [ gs.name, gs.id ] }, { :include_blank => true })%></div>
+          <p>
+            if you don't see the station that you want, you can <%= link_to "create it", new_gas_station_path%> 
+          </p>
+              
+          <div><%= f.submit "create tanking",:class => "btn btn-primary" %></div>
+        <% end %>
+        <br />
+        <%= link_to "Back", user_car_tanking_logs_path(@user, @car),:class => "btn btn-primary"%>
+      </div> <!-- /container -->
+    </body>
+</html>

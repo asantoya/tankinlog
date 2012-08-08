@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+    </head>
+    <body>
+      <div class="container">
+        
+        <fieldset>
+          <h1>Car info</h1>
+          <br>
+          <p></p>
+          <table class="table table-condensed">
+			     <tr><th>Brand</th><td><%= @car.brand %></td></tr>
+  			   <tr><th>Color</th><td><%= @car.color %></td></tr>
+  			   <tr><th>Model</th><td><%= @car.model %></td></tr>
+  			   <tr><th>Year</th><td><%= @car.year %></td></tr>
+      	  </table>
+          <%= link_to "Back to car list", user_cars_path(current_user),:class => "btn btn-primary"  %>
+          <br>
+          <p></p>
+        </fieldset>
+      </div> <!-- /container -->
+    </body>
+</html>
+

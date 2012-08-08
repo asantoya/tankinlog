@@ -9,7 +9,7 @@ gem 'sass-rails',   '~> 3.2.3'
 gem "rspec", "~> 2.10.0"
 gem 'simplecov', :require => false, :group => :test
 gem 'lazy_high_charts', '~> 1.1.5'
-gem "mocha", :require => false
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -30,6 +30,7 @@ group :test, :development do
   gem "rspec-rails", "~> 2.0"
   gem 'factory_girl_rails', '1.4.0'
   gem 'capybara'
+  gem "mocha", :require => false
 end
 
 gem 'jquery-rails',"2.0.2"

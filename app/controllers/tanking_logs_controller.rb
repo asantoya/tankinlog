@@ -20,5 +20,6 @@ class TankingLogsController < ApplicationController
     @user = User.find(params[:user_id]) 
     @car = @user.cars.find(params[:car_id])    
     @tankinglog = @car.tanking_logs.all
+    @tankinglog_ids_json = @car.tanking_logs.all(:select => "cost").to_json
   end
 end

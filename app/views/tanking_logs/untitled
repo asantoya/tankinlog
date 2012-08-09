@@ -1,3 +1,6 @@
+===========THIS FILE IS ONLY FOR CODE THAT I HAVE USED AND MAY BE USED FOR HELP=========
+
+
 <script type="text/javascript" charset="utf-8">
         $(function () { 
          new Highcharts.Chart({
@@ -22,6 +25,9 @@
       </script>
       <div id="foo_chart" style="width: 560px; height: 300px;"></div>
       <%= high_chart("my_id", @h) %>
+      def self.total_on(date)
+      where("car_id = ?", id).where("date(date) = ?",date).sum(:cost)
+    end
 
 
       <% @tankinglog.each do |tankinglog| %>
@@ -34,6 +40,8 @@
             </tr>
           <% end %>
 
+
+
 @h = LazyHighCharts::HighChart.new('graph') do |f|
       @tankinglog.each do |tankinglog|
         f.options[:chart][:defaultSeriesType] = "column"
@@ -42,3 +50,18 @@
         f.xAxis(:categories=>['Stations'])
       end
     end
+
+    <%= (1.weeks.ago.to_date..Date.today).map { |date| TankingLog.total_on(date).to_f}.inspect %>  
+
+    [
+              
+                <% @costs = TankingLog.where("car_id = ?", current_user.id) %>
+                <% @costs.each do |tankinglog| %>
+                  <%= "[Date.UTC(" + tankinglog.date.year.to_s  + ", " + ( tankinglog.date.month - 1 ).to_s  + ", " + tankinglog.date.day.to_s  + ")" + ", " + tankinglog.weight.to_f.round(2).to_s + " ],"%>
+                <% end %>
+              ]
+
+
+              <% for tankinglog in @tankinglog  %>
+                  <%= "[Date.UTC(" + tankinglog.date.to_s  + ")" + ", " + tankinglog.cost.to_f.round(2).to_s + " ],"%>
+                <% end %>

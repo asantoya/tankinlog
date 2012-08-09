@@ -15,31 +15,35 @@
         There are no tankings for this car. Do you want to <%= link_to 'create a new tanking', new_user_car_tanking_log_path(@user, @car)%>
         </p>
       <% else %>
-      <script type="text/javascript" charset="utf-8">
-      $(function () {
-        new Highcharts.Chart({
-          chart: { renderTo: 'foo_chart',defaultSeriesType: 'column' },
-          title: { text: 'tanking costs daily' },
-          xAxis: { type: 'datetime' },
-          yAxis: {
-            title: { text: 'cost' }
-          },
-          tooltip: {
-            formatter: function () {
-              return Highcharts.dateFormat("%B %e %Y", this.x) + ': ' + '$' + Highcharts.numberFormat(this.y, 2);
-            }
-          },
-          series: [{
-            name: 'Days',
-            pointInterval: <%= 1.day * 1000 %>, 
-            pointStart: <%= 1.weeks.ago.at_midnight.to_i * 1000 %>,
-            data: <%= @tankinglog_ids_json%>
-          }]
+        <script type="text/javascript" charset="utf-8">
+        $(function () {
+          new Highcharts.Chart({
+            chart: { renderTo: 'foo_chart',defaultSeriesType: 'column' },
+            title: { text: 'tanking costs daily' },
+            xAxis: { type: 'datetime' },
+            yAxis: {
+              title: { text: 'cost' }
+            },
+            tooltip: {
+              formatter: function () {
+                return Highcharts.dateFormat("%B %e %Y", this.x) + ': ' + '$' + Highcharts.numberFormat(this.y, 2);
+              }
+            },
+            series: [{
+              name: 'Days',
+              pointInterval: <%= 1.day * 1000 %>, 
+              pointStart: <%= 1.weeks.ago.at_midnight.to_i * 1000 %>,
+              data:[
+                <% for tankinglog in @tankinglog  %>
+                  <%= "(" + tankinglog.cost.to_f.round(2).to_s + "),"%>
+                <% end %>
+              ]
+            }]
+          });
         });
-      });
-      </script>
-      <div id="foo_chart" style="width: 1000px; height: 300px;"></div>
-      <h1>Listing Tankings</h1>
+        </script>
+        <div id="foo_chart" style="width: 1000px; height: 300px;"></div>
+        <h1>Listing Tankings</h1>
         <table class="table table-condensed">
           <tr>
             <th>Cost</th>

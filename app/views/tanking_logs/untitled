@@ -1,33 +1,12 @@
 ===========THIS FILE IS ONLY FOR CODE THAT I HAVE USED AND MAY BE USED FOR HELP=========
 
 
-<script type="text/javascript" charset="utf-8">
-        $(function () { 
-         new Highcharts.Chart({
-          chart: { renderTo: 'foo_chart',defaultSeriesType: 'line' },
-          title: { text: 'tankigs history' },
-          xAxis: { 
-            categories: ['Apples', 'Bananas', 'Oranges']
-          },
-          yAxis: {
-            title: { text: 'Cost'}
-          },
-          series: [{
-            name: '13',
-            data: [1,2,3]
-          }, {
-            name: '14',
-            data: [5,6,7]
-          }]
-        }); 
-       });
-       
-      </script>
-      <div id="foo_chart" style="width: 560px; height: 300px;"></div>
-      <%= high_chart("my_id", @h) %>
-      def self.total_on(date)
-      where("car_id = ?", id).where("date(date) = ?",date).sum(:cost)
-    end
+          data:[
+            <% for tankinglog in @tankinglog  %>
+              <%= "(" + tankinglog.cost.to_f.round(2).to_s + "),"%>
+            <% end %>
+          ]
+
 
 
       <% @tankinglog.each do |tankinglog| %>
@@ -39,9 +18,6 @@
               <td><%= tankinglog.gas_station_id %></td>
             </tr>
           <% end %>
-
-
-
 @h = LazyHighCharts::HighChart.new('graph') do |f|
       @tankinglog.each do |tankinglog|
         f.options[:chart][:defaultSeriesType] = "column"

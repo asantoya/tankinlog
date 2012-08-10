@@ -10,11 +10,9 @@ describe TankingLogsController do
     	end
     end
     describe "GET 'create'" do
-		before do
-    		user =  Factory.create(:user)
-			car =  Factory.create(:car)
-		end
     	it "create the new tanking"do
+    	user =  Factory.create(:user)
+    	car =  Factory.create(:car)
     	tanking=Factory.create(:tanking_log)
     	visit user_car_tanking_logs_path(:user_id => user.id,:car_id=>car.id)
     	response.should be_success

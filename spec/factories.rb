@@ -1,15 +1,15 @@
 FactoryGirl.define do
-  factory :user do
-    email    "michael@example.com"
-    password "foobar"
-    password_confirmation "foobar"
+
+  Factory.define :user do |f| 
+    f.password "foobar"
+    f.password_confirmation { |u| u.password }
+    f.email "foo@example.com"
   end
 
-  factory :car do
-    brand    "example"
-    color "red"
-    model "ZXC"
-    year "2012"
-    user_id "1"
+  Factory.define :car do |f|
+    f.brand    "example"
+    f.color "red"
+    f.model "ZXC"
+    f.year "2012"
   end
 end

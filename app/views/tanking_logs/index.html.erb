@@ -18,7 +18,7 @@
         <script type="text/javascript" charset="utf-8">
         $(function () {
           new Highcharts.Chart({
-            chart: { renderTo: 'foo_chart',defaultSeriesType: 'column' },
+            chart: { renderTo: 'tanking_chart',defaultSeriesType: 'column' },
             title: { text: 'tanking costs daily' },
             xAxis: { type: 'datetime' },
             yAxis: {
@@ -34,15 +34,17 @@
               pointInterval: <%= 1.day * 1000 %>, 
               pointStart: <%= 1.weeks.ago.at_midnight.to_i * 1000 %>,
               data:[
-                <% for tankinglog in @tankinglog  %>
-                  <%= "(" + tankinglog.cost.to_f.round(2).to_s + "),"%>
-                <% end %>
-              ]
+              <% result = 0;
+              for tankinglog in @tankinglog 
+                result += tankinglog.cost.to_f
+              end %>
+              <%= result.round(2).to_s %>
+            ]
             }]
           });
         });
         </script>
-        <div id="foo_chart" style="width: 1000px; height: 300px;"></div>
+        <div id="tanking_chart" style="width: 1000px; height: 300px;"></div>
         <h1>Listing Tankings</h1>
         <table class="table table-condensed">
           <tr>

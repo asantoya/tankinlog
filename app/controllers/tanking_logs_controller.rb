@@ -20,8 +20,5 @@ class TankingLogsController < ApplicationController
     @user = User.find(params[:user_id]) 
     @car = @user.cars.find(params[:car_id])    
     @tankinglog = @car.tanking_logs.all
-    @tankinglog_ids_json = @car.tanking_logs.all(:select => "cost").to_json
-    #var category_transactions_sum = new Array();
-    #category_transactions_sum.push({title:categories[c].title, amount: transactions_sum})
   end
 end

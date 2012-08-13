@@ -1,6 +1,7 @@
 ---
 rails.png: rails-be8732dac73d845ac5b142c8fb5f9fb0.png
 application.js: application-75a12de1d8547ab489a709d5c3cd72e4.js
+highcharts.js: highcharts-a43fc1c32afb198c70856451d082285f.js
 application.css: application-f1a987e8b2b6ab027e3122a27c2f0421.css
 jquery-ui/ui-bg_flat_0_aaaaaa_40x100.png: jquery-ui/ui-bg_flat_0_aaaaaa_40x100-a1eb3e0764573ed4b261ca742ed96ac3.png
 jquery-ui/ui-bg_flat_75_ffffff_40x100.png: jquery-ui/ui-bg_flat_75_ffffff_40x100-841636c8f8d33987bb8d2f31e8ef92ca.png
